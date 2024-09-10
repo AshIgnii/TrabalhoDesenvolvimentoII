@@ -1,0 +1,22 @@
+{
+  "name": "trabalhodesenvolvimentoii",
+  "version": "1.0.0",
+  "description": "Implementar uma API \"Gestão de Ensino Especial\" e as funcionalidades aprendidas durante o curso!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshIgnii/TrabalhoDesenvolvimentoII.git"
+  },
+  "author": "Davi de Oliveira Caporal, Marcos Fernandes Daufenbach, João Victor Kafka, Vitor Hugo Rodrigues Gomes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AshIgnii/TrabalhoDesenvolvimentoII/issues"
+  },
+  "homepage": "https://github.com/AshIgnii/TrabalhoDesenvolvimentoII#readme",
+  "dependencies": {
+    "express": "^4.20.0"
+  }
+}
