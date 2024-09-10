@@ -1,12 +1,24 @@
-module.exports = (() => {
-    let route = require('express').Router();
+const express = require('express');
+const router = express.Router();
 
-    route.get('/', (req, res) => {
-        // listar todos os estudantes
-    });
-    route.get('/:arg', (req, res) => {
-        // listar estudante por id, nome
-    });
+router.get('/', (req, res) => {
+  // Lista de estudantes
+});
 
-    return route;
-})();
+router.post('/', (req, res) => {
+  // Adicionar um estudante
+});
+
+router.get('/:id', (req, res) => {
+  // Detalhes do estudante por id, nome
+});
+
+router.put('/:id', (req, res) => {
+  // Atualizar o estudante por id, nome
+});
+
+router.delete('/:arg', (req, res) => {
+  // Deletar o estudante por id, nome
+});
+
+module.exports = router;
