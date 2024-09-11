@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/AshIgnii/TrabalhoDesenvolvimentoII#readme",
   "dependencies": {
-    "express": "^4.20.0"
+    "express": "^5.0.0"
   }
 }
