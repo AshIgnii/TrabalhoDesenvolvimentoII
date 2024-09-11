@@ -4,6 +4,3 @@ const event = require("./models/student.js");
 const { initDB, addDB } = require("./functions");
 
 initDB();
-
-let cu = new event();
-addDB(cu);

@@ -48,4 +48,13 @@ function getDB(type) {
   return file ? JSON.parse(file) : [];
 }
 
+function removeDB(obj) {
+  let type = getType(obj);
+  let file = fs.readFileSync(`${dbFolder}/${type}.json`, "utf8");
+  data = file ? JSON.parse(file) : [];
+
+  data = data.filter((el) => JSON.stringify(el) !== JSON.stringify(obj));
+  fs.writeFileSync(`${dbFolder}/${type}.json`, JSON.stringify(data));
+}
+
 module.exports = { initDB, addDB };
