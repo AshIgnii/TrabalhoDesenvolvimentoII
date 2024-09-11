@@ -3,3 +3,5 @@ const app = express();
 const { initDB } = require('./functions');
 
 initDB();
+
+// teste
