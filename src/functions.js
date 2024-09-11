@@ -57,4 +57,4 @@ function removeDB(obj) {
   fs.writeFileSync(`${dbFolder}/${type}.json`, JSON.stringify(data));
 }
 
-module.exports = { initDB, addDB };
+module.exports = { initDB, addDB, getDB, removeDB };
