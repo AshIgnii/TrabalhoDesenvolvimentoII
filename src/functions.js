@@ -5,6 +5,9 @@ let modNames = [];
 let models = new Map();
 
 function initDB() {
+  if (!fs.existsSync(dbFolder)) {
+    fs.mkdirSync(dbFolder);
+  }
   fs.readdirSync(modelsFolder).forEach((file) => {
     modNames.push(`${file.split(".")[0]}`);
     models.set(file.split(".")[0], require(`${modelsFolder}/${file}`));
