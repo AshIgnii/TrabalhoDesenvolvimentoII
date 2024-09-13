@@ -6,6 +6,9 @@ const app = express();
 
 app.use(express.json());
 app.use(router);
+app.get("/", (req, res) => {
+  res.send("Documentação em /docs");
+});
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(3000, () => {
