@@ -1,11 +1,8 @@
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output.json");
-const fs = require("fs");
-const app = express();
-const event = require("./models/student.js");
-const dbManager = require("./dbManager.js");
 const router = require("./router.js");
+const app = express();
 
 app.use(express.json());
 app.use(router);
