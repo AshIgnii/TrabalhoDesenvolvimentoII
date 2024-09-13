@@ -1,17 +1,15 @@
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger-output.json");
 const fs = require("fs");
 const app = express();
-const event = require(__dirname + "/models/student.js");
-const dbManager = require(__dirname + "/dbManager.js");
+const event = require("./models/student.js");
+const dbManager = require("./dbManager.js");
+const router = require("./router.js");
 
 app.use(express.json());
-
-const routeFiles = fs.readdirSync(__dirname + "/routes");
-routeFiles.forEach((file) => {
-  let reqFile = require(__dirname + `/routes/${file}`);
-  let route = "/" + file.split(".")[0].split("Routes")[0] + "s";
-  app.use(route, reqFile);
-});
+app.use(router);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

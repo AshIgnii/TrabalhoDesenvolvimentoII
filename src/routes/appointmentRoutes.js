@@ -5,7 +5,7 @@ const db = new dbManager();
 const Appointment = require("../models/appointment.js");
 
 router.get("/", (req, res) => {
-  res.send(db.getDB("appointment"));
+  res.json(db.getDB("appointment"));
 });
 
 router.post("/", (req, res) => {
