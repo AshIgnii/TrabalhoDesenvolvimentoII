@@ -47,7 +47,7 @@ router.get("/:id", (req, res) => {
   if (user) {
     res.status(200).json(user);
   } else {
-    res.status(404).send("Usuario não encontrado");
+    res.status(404).send("Usuário não encontrado");
   }
 });
 
@@ -106,7 +106,7 @@ router.put("/:id", (req, res) => {
 
     res.status(200).json(newUser);
   } else {
-    res.status(404).send("Usuario não encontrado");
+    res.status(404).send("Usuário não encontrado");
   }
 });
 
@@ -116,7 +116,7 @@ router.delete("/:id", (req, res) => {
     db.removeDB("user", user);
     res.status(200).send("OK");
   } else {
-    res.status(404).send("Usuario não encontrado");
+    res.status(404).send("Usuário não encontrado");
   }
 });
 
