@@ -83,7 +83,7 @@ router.put("/:id", (req, res) => {
       newUser.pwd = req.body.pwd;
     }
     if (req.body.level) {
-      if (req.body.level === "") {
+      if (req.body.level === "" || !req.body.level) {
         newUser.level = "user";
       } else if (req.body.level !== "admin" && req.body.level !== "user") {
         res.status(400).send("Nível inválido");
