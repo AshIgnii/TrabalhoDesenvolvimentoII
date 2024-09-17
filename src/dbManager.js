@@ -38,9 +38,15 @@ class dbManager {
     let file = this.fs.readFileSync(`${this.dbFolder}/${type}.json`, "utf8");
     let data = file ? JSON.parse(file) : [];
 
-    if (data.some((el) => JSON.stringify(el) === JSON.stringify(obj))) {
+    const index = data.findIndex((el) => {
+      const { id: elID, ...elRest } = el;
+      const { id: objID, ...objRest } = obj;
+      return JSON.stringify(elRest) === JSON.stringify(objRest);
+    });
+    
+    if (index !== -1) {
       console.warn("Tentativa de adicionar objeto duplicado, ignorando...");
-      return false;
+      return index;
     }
 
     data.push(obj);
@@ -60,7 +66,11 @@ class dbManager {
     let file = this.fs.readFileSync(`${this.dbFolder}/${type}.json`, "utf8");
     let data = file ? JSON.parse(file) : [];
 
-    data = data.filter((el) => JSON.stringify(el) !== JSON.stringify(obj));
+    data = data.filter((el) => {
+      const { id: elID, ...elRest } = el;
+      const { id: objID, ...objRest } = obj;
+      return JSON.stringify(elRest) !== JSON.stringify(objRest);
+    });
     this.fs.writeFileSync(
       `${this.dbFolder}/${type}.json`,
       JSON.stringify(data),

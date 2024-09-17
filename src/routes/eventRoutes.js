@@ -4,7 +4,7 @@ const dbManager = require("../dbManager.js");
 const db = new dbManager();
 
 router.get("/", (req, res) => {
-  // Todos os objetos
+  // Obter todos os objetos
 });
 
 router.post("/", (req, res) => {

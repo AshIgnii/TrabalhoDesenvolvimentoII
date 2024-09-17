@@ -11,6 +11,16 @@
     }
   ],
   "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/appointments/": {
       "get": {
         "description": "",
@@ -301,16 +311,48 @@
       "get": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       },
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "age": {
+                    "example": "any"
+                  },
+                  "parents": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  },
+                  "specialNeeds": {
+                    "example": "any"
+                  },
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -329,8 +371,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
@@ -347,8 +392,43 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "age": {
+                    "example": "any"
+                  },
+                  "parents": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  },
+                  "specialNeeds": {
+                    "example": "any"
+                  },
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -365,8 +445,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -375,16 +458,45 @@
       "get": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       },
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "schoolDiscipline": {
+                    "example": "any"
+                  },
+                  "contact": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  },
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -403,8 +515,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
@@ -421,8 +536,40 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "schoolDiscipline": {
+                    "example": "any"
+                  },
+                  "contact": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  },
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -439,8 +586,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -598,10 +748,6 @@
       "user": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
           "name": {
             "type": "string",
             "example": "Andre Faria Ruaro"
@@ -628,16 +774,15 @@
           }
         },
         "required": [
-          "email"
+          "name",
+          "email",
+          "user",
+          "pwd"
         ]
       },
       "appointment": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
           "specialty": {
             "type": "string",
             "example": "Fisioterapeuta"
@@ -660,21 +805,19 @@
           }
         },
         "required": [
-          "date"
+          "date",
+          "student",
+          "professional"
         ]
       },
       "teacher": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
           "name": {
             "type": "string",
             "example": "Judite Heeler"
           },
-          "school_discipline": {
+          "schoolDiscipline": {
             "type": "string",
             "example": "Artes, Português"
           },
@@ -682,7 +825,7 @@
             "type": "string",
             "example": "j.heeler@gmail"
           },
-          "phone_number": {
+          "phoneNumber": {
             "type": "string",
             "example": "48 9696 5858"
           },
@@ -692,16 +835,15 @@
           }
         },
         "required": [
-          "contact"
+          "name",
+          "schoolDiscipline",
+          "contact",
+          "phoneNumber"
         ]
       },
       "student": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
           "name": {
             "type": "string",
             "example": "Bingo Heeler"
@@ -714,11 +856,11 @@
             "type": "string",
             "example": "Bandit Heeler e Chilli Heeler"
           },
-          "phone_number": {
+          "phoneNumber": {
             "type": "string",
             "example": "48 9696 5858"
           },
-          "special_needs": {
+          "specialNeeds": {
             "type": "string",
             "example": "Síndrome de Down"
           },
@@ -726,15 +868,18 @@
             "type": "string",
             "example": "on"
           }
-        }
+        },
+        "required": [
+          "name",
+          "age",
+          "parents",
+          "phoneNumber",
+          "specialNeeds"
+        ]
       },
       "professional": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
           "name": {
             "type": "string",
             "example": "Winton Blake"
@@ -747,7 +892,7 @@
             "type": "string",
             "example": "w.blake@gmail"
           },
-          "phone_number": {
+          "phoneNumber": {
             "type": "string",
             "example": "48 9696 5858"
           },
@@ -763,10 +908,6 @@
       "event": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
           "description": {
             "type": "string",
             "example": "Palestra bem viver com saúde"

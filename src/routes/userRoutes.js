@@ -23,6 +23,11 @@ router.post("/", (req, res) => {
     req.body.status,
   );
 
+  if (!req.body.name || !req.body.email || !req.body.user || !req.body.pwd) {
+    res.status(400).send("Preencha todos os campos obrigatórios (name, email, user, pwd)");
+    return;
+  }
+
   if (!emailRegex.test(newUser.email)) {
     res.status(400).send("Email inválido");
     return;
@@ -37,7 +42,11 @@ router.post("/", (req, res) => {
     newUser.status = "on";
   }
 
-  db.addDB(newUser);
+  let rs = db.addDB(newUser);
+  if (rs !== true) {
+    let original = db.getDB("user")[rs];
+    newUser.id = original.id;
+  }
 
   res.status(200).json(newUser);
 });

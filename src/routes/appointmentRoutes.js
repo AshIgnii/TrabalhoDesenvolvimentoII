@@ -19,6 +19,11 @@ router.post("/", (req, res) => {
     req.body.professional,
   );
 
+  if (!req.body.date || !req.body.student || !req.body.professional) {
+    res.status(400).send("Preencha todos os campos obrigatórios (date, student, professional)");
+    return;
+  }
+
   if (isNaN(new Date(newAppointment.date))) {
     res.status(400).send("Data inválida");
     return;
@@ -41,7 +46,11 @@ router.post("/", (req, res) => {
     newAppointment.comments = "";
   }
 
-  db.addDB(newAppointment);
+  let rs = db.addDB(newAppointment);
+  if (rs !== true) {
+    let original = db.getDB("appointment")[rs];
+    newAppointment.id = original.id;
+  }
 
   res.status(200).json(newAppointment);
 });
