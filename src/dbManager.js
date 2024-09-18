@@ -43,10 +43,24 @@ class dbManager {
       const { id: objID, ...objRest } = obj;
       return JSON.stringify(elRest) === JSON.stringify(objRest);
     });
-    
+
     if (index !== -1) {
       console.warn("Tentativa de adicionar objeto duplicado, ignorando...");
       return index;
+    }
+
+    let sameID = data.filter((el) => el.id === obj.id);
+    if (sameID.length > 0) {
+      console.warn(
+        "Tentativa de adicionar objeto com ID duplicado, alterando...",
+      );
+      for (let i = 1; i <= data.length; i++) {
+        let idObj = data.find((el) => el.id === i);
+        if (!idObj) {
+          obj.id = i;
+          break;
+        }
+      }
     }
 
     data.push(obj);

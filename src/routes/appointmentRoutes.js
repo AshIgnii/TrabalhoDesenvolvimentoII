@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
   let id = db.getDB("appointment").length + 1;
   let newAppointment = new Appointment(
     id,
-    null,
+    req.body.specialty,
     req.body.comments,
     req.body.date,
     req.body.student,
@@ -28,26 +28,55 @@ router.post("/", (req, res) => {
     return;
   }
 
+  if (typeof newAppointment.student !== "string") {
+    res.status(400).send("Estudante deve ser uma string");
+    return;
+  }
+
+  if (typeof newAppointment.professional !== "string") {
+    res.status(400).send("Profissional deve ser uma string");
+    return;
+  }
+
+  if (newAppointment.specialty) {
+    if (typeof newAppointment.specialty !== "string") {
+      res.status(400).send("Especialidade deve ser uma string");
+      return;
+    }
+  }
+
+  if (newAppointment.comments) {
+    if (typeof newAppointment.comments !== "string") {
+      res.status(400).send("Comentários devem ser uma string");
+      return;
+    }
+  }
+
   if (isNaN(new Date(newAppointment.date))) {
     res.status(400).send("Data inválida");
     return;
   }
   let students = db.getDB("student");
   if (!students.some((el) => el.name === newAppointment.student)) {
-    res.status(400).send("Estudante não existe");
+    res.status(400).send("Estudante com este nome não existe");
     return;
   }
   let professionals = db.getDB("professional");
   if (!professionals.some((el) => el.name === newAppointment.professional)) {
-    res.status(400).send("Profissional não existe");
+    res.status(400).send("Profissional com este nome não existe");
     return;
   } else {
-    newAppointment.specialty = professionals.find(
-      (pf) => pf.name === newAppointment.professional,
-    ).specialty;
+    if (!newAppointment.specialty) {
+      newAppointment.specialty = professionals.find(
+        (pf) => pf.name === newAppointment.professional,
+      ).specialty;
+    }
   }
   if (!newAppointment.comments) {
     newAppointment.comments = "";
+  } else if (typeof newAppointment.comments !== "string") {
+    res.status(400).send("Comentários devem ser uma string");
+    return;
   }
 
   let rs = db.addDB(newAppointment);
@@ -92,11 +121,12 @@ router.put("/:id", (req, res) => {
     if (req.body.comments) {
       newAppointment.comments = req.body.comments > 0 ? req.body.comments : "";
     }
-    if (req.body.date && !isNaN(new Date(req.body.date))) {
+    if (req.body.date) {
+      if (isNaN(new Date(req.body.date))) {
+        res.status(400).send("Data inválida");
+        return;
+      }
       newAppointment.date = req.body.date;
-    } else {
-      res.status(400).send("Data inválida");
-      return;
     }
     if (req.body.student) {
       let students = db.getDB("student");
@@ -118,9 +148,13 @@ router.put("/:id", (req, res) => {
     }
 
     db.removeDB("appointment", appointment);
-    db.addDB(newAppointment);
+    let rs = db.addDB(newAppointment);
+    if (rs !== true) {
+      let original = db.getDB("appointment")[rs];
+      newAppointment.id = original.id;
+    }
 
-    res.status(200).json(newAppointment);
+    res.status(200).json(newAppointment).send("OK");
   } else {
     res.status(404).send("Consulta não encontrada");
   }

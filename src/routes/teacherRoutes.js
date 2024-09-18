@@ -130,7 +130,11 @@ router.put("/:id", (req, res) => {
       newTeacher.status = req.body.status;
     }
     db.removeDB("teacher", teacher);
-    db.addDB(newTeacher);
+    let rs = db.addDB(newTeacher);
+    if (rs !== true) {
+      let original = db.getDB("newTeacher")[rs];
+      newTeacher.id = original.id;
+    }
 
     res.status(200).json(newTeacher);
   } else {

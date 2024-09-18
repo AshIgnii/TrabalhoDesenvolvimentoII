@@ -90,7 +90,11 @@ router.put("/:id", (req, res) => {
     }
 
     db.removeDB("event", event);
-    db.addDB(newEvent);
+    let rs = db.addDB(newEvent);
+    if (rs !== true) {
+      let original = db.getDB("newEvent")[rs];
+      newEvent.id = original.id;
+    }
     res.status(200).json(newEvent);
   } else {
     res.status(404).send("Evento não encontrado");
