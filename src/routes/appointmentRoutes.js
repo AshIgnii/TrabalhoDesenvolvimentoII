@@ -20,7 +20,11 @@ router.post("/", (req, res) => {
   );
 
   if (!req.body.date || !req.body.student || !req.body.professional) {
-    res.status(400).send("Preencha todos os campos obrigatórios (date, student, professional)");
+    res
+      .status(400)
+      .send(
+        "Preencha todos os campos obrigatórios (date, student, professional)",
+      );
     return;
   }
 

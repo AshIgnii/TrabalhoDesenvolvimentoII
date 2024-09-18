@@ -20,10 +20,19 @@ router.post("/", (req, res) => {
     req.body.contact,
     req.body.phoneNumber,
     req.body.status,
-  )
+  );
 
-  if (!req.body.name || !req.body.schoolDiscipline || !req.body.contact || !req.body.phoneNumber) {
-    res.status(400).send("Preencha todos os campos obrigatórios (name, schoolDiscipline, contact, phoneNumber)");
+  if (
+    !req.body.name ||
+    !req.body.schoolDiscipline ||
+    !req.body.contact ||
+    !req.body.phoneNumber
+  ) {
+    res
+      .status(400)
+      .send(
+        "Preencha todos os campos obrigatórios (name, schoolDiscipline, contact, phoneNumber)",
+      );
     return;
   }
 
@@ -32,10 +41,18 @@ router.post("/", (req, res) => {
     return;
   }
   if (typeof req.body.phoneNumber === "number") {
-    newTeacher.phoneNumber = req.body.phoneNumber
+    newTeacher.phoneNumber = req.body.phoneNumber;
   } else if (typeof req.body.phoneNumber === "string") {
-    if (isNaN(parseInt(req.body.phoneNumber.split(" ").reduce((el, acc) => el += acc)))) {
-      res.status(400).send("Número de telefone inválido, utilize apenas números");
+    if (
+      isNaN(
+        parseInt(
+          req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
+        ),
+      )
+    ) {
+      res
+        .status(400)
+        .send("Número de telefone inválido, utilize apenas números");
       return;
     }
   }
@@ -53,7 +70,9 @@ router.post("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  let teacher = db.getDB("teacher").find((el) => el.id === parseInt(req.params.id));
+  let teacher = db
+    .getDB("teacher")
+    .find((el) => el.id === parseInt(req.params.id));
   if (teacher) {
     res.status(200).json(teacher);
   } else {
@@ -62,7 +81,9 @@ router.get("/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  let teacher = db.getDB("teacher").find((el) => el.id === parseInt(req.params.id));
+  let teacher = db
+    .getDB("teacher")
+    .find((el) => el.id === parseInt(req.params.id));
   if (teacher) {
     let id = teacher.id;
 
@@ -73,7 +94,7 @@ router.put("/:id", (req, res) => {
       teacher.contact,
       teacher.phoneNumber,
       teacher.status,
-    )
+    );
     if (req.body.name) {
       newTeacher.name = req.body.name;
     }
@@ -88,8 +109,16 @@ router.put("/:id", (req, res) => {
       newTeacher.contact = req.body.contact;
     }
     if (req.body.phoneNumber) {
-      if (isNaN(parseInt(req.body.phoneNumber.split(" ").reduce((el, acc) => el += acc)))) {
-        res.status(400).send("Número de telefone inválido, utilize apenas números");
+      if (
+        isNaN(
+          parseInt(
+            req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
+          ),
+        )
+      ) {
+        res
+          .status(400)
+          .send("Número de telefone inválido, utilize apenas números");
         return;
       }
       newTeacher.phoneNumber = req.body.phoneNumber;
@@ -110,7 +139,9 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  let teacher = db.getDB("teacher").find((el) => el.id === parseInt(req.params.id));
+  let teacher = db
+    .getDB("teacher")
+    .find((el) => el.id === parseInt(req.params.id));
   if (teacher) {
     db.removeDB("teacher", teacher);
     res.status(200).send("OK");

@@ -24,7 +24,9 @@ router.post("/", (req, res) => {
   );
 
   if (!req.body.name || !req.body.email || !req.body.user || !req.body.pwd) {
-    res.status(400).send("Preencha todos os campos obrigatórios (name, email, user, pwd)");
+    res
+      .status(400)
+      .send("Preencha todos os campos obrigatórios (name, email, user, pwd)");
     return;
   }
 

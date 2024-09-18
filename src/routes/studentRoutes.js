@@ -18,27 +18,47 @@ router.post("/", (req, res) => {
     req.body.phoneNumber,
     req.body.specialNeeds,
     req.body.status,
-  )
+  );
 
-  if (!req.body.name || !req.body.age || !req.body.parents || !req.body.phoneNumber || !req.body.specialNeeds) {
-    res.status(400).send("Preencha todos os campos obrigatórios (name, age, parents, phoneNumber, specialNeeds)");
+  if (
+    !req.body.name ||
+    !req.body.age ||
+    !req.body.parents ||
+    !req.body.phoneNumber ||
+    !req.body.specialNeeds
+  ) {
+    res
+      .status(400)
+      .send(
+        "Preencha todos os campos obrigatórios (name, age, parents, phoneNumber, specialNeeds)",
+      );
     return;
   }
 
   if (typeof req.body.age === "string") {
-    if (isNaN(parseInt(req.body.age.split(" ").reduce((el, acc) => el += acc)))) {
+    if (
+      isNaN(parseInt(req.body.age.split(" ").reduce((el, acc) => (el += acc))))
+    ) {
       res.status(400).send("Idade inválida, utilize apenas números");
       return;
     }
   }
 
   if (typeof req.body.phoneNumber === "string") {
-    if (isNaN(parseInt(req.body.phoneNumber.split(" ").reduce((el, acc) => el += acc)))) {
-      res.status(400).send("Número de telefone inválido, utilize apenas números");
+    if (
+      isNaN(
+        parseInt(
+          req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
+        ),
+      )
+    ) {
+      res
+        .status(400)
+        .send("Número de telefone inválido, utilize apenas números");
       return;
     }
   }
-  
+
   if (newStudent.status !== "on" && newStudent.status !== "off") {
     newStudent.status = "on";
   }
@@ -53,7 +73,9 @@ router.post("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  let student = db.getDB("student").find((el) => el.id === parseInt(req.params.id));
+  let student = db
+    .getDB("student")
+    .find((el) => el.id === parseInt(req.params.id));
   if (student) {
     res.status(200).json(student);
   } else {
@@ -62,7 +84,9 @@ router.get("/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  let student = db.getDB("student").find((el) => el.id === parseInt(req.params.id));
+  let student = db
+    .getDB("student")
+    .find((el) => el.id === parseInt(req.params.id));
   if (student) {
     let id = student.id;
 
@@ -74,13 +98,17 @@ router.put("/:id", (req, res) => {
       student.phoneNumber,
       student.specialNeeds,
       student.status,
-    )
+    );
 
     if (req.body.name) {
       newStudent.name = req.body.name;
     }
     if (req.body.age) {
-      if (isNaN(parseInt(req.body.age.split(" ").reduce((el, acc) => el += acc)))) {
+      if (
+        isNaN(
+          parseInt(req.body.age.split(" ").reduce((el, acc) => (el += acc))),
+        )
+      ) {
         res.status(400).send("Idade inválida, utilize apenas números");
         return;
       }
@@ -90,8 +118,16 @@ router.put("/:id", (req, res) => {
       newStudent.parents = req.body.parents;
     }
     if (req.body.phoneNumber) {
-      if (isNaN(parseInt(req.body.phoneNumber.split(" ").reduce((el, acc) => el += acc)))) {
-        res.status(400).send("Número de telefone inválido, utilize apenas números");
+      if (
+        isNaN(
+          parseInt(
+            req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
+          ),
+        )
+      ) {
+        res
+          .status(400)
+          .send("Número de telefone inválido, utilize apenas números");
         return;
       }
       newStudent.phoneNumber = req.body.phoneNumber;
@@ -119,7 +155,9 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  let student = db.getDB("student").find((el) => el.id === parseInt(req.params.id));
+  let student = db
+    .getDB("student")
+    .find((el) => el.id === parseInt(req.params.id));
   if (student) {
     db.removeDB("student", student);
     res.status(200).send("OK");

@@ -14,11 +14,13 @@ router.post("/", (req, res) => {
     id,
     req.body.description,
     req.body.comments,
-    req.body.date
+    req.body.date,
   );
 
   if (!req.body.date || !req.body.description) {
-    res.status(400).send("Preencha todos os campos obrigatórios (date, description)");
+    res
+      .status(400)
+      .send("Preencha todos os campos obrigatórios (date, description)");
     return;
   }
 
@@ -45,13 +47,10 @@ router.post("/", (req, res) => {
     newEvent.id = original.id;
   }
   res.status(200).json(newEvent);
-
 });
 
 router.get("/:id", (req, res) => {
-  let event = db
-    .getDB("event")
-    .find((el) => el.id === parseInt(req.params.id));
+  let event = db.getDB("event").find((el) => el.id === parseInt(req.params.id));
   if (event) {
     res.status(200).json(event);
   } else {
@@ -60,18 +59,11 @@ router.get("/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  let event = db
-    .getDB("event")
-    .find((el) => el.id === parseInt(req.params.id));
+  let event = db.getDB("event").find((el) => el.id === parseInt(req.params.id));
   if (event) {
     let id = event.id;
 
-    let newEvent = new Event(
-      id,
-      event.description,
-      event.comments,
-      event.date
-    );
+    let newEvent = new Event(id, event.description, event.comments, event.date);
 
     if (req.body.description) {
       if (typeof req.body.description !== "string") {
@@ -103,13 +95,10 @@ router.put("/:id", (req, res) => {
   } else {
     res.status(404).send("Evento não encontrado");
   }
-
 });
 
 router.delete("/:id", (req, res) => {
-  let event = db
-    .getDB("event")
-    .find((el) => el.id === parseInt(req.params.id));
+  let event = db.getDB("event").find((el) => el.id === parseInt(req.params.id));
   if (event) {
     db.removeDB("event", event);
     res.status(200).send("OK");
