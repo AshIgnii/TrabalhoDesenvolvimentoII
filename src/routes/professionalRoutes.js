@@ -3,6 +3,7 @@ const router = express.Router();
 const dbManager = require("../dbManager.js");
 const db = new dbManager();
 const Professional = require("../models/professional.js");
+const phoneRegex = new RegExp("[a-z]|[A-Z]|\\s");
 
 router.get("/", (req, res) => {
   res.json(db.getDB("professional"));
@@ -18,46 +19,82 @@ router.post("/", (req, res) => {
     req.body.phoneNumber,
     req.body.status,
   );
-  if (!req.body.name || !req.body.speciality || !req.body.contact || !req.body.phoneNumber) {
-    res.status(404).send("Preencha todos os campos obrigatórios (name, speciality, contact, phoneNumber, status)");
+  if (
+    !req.body.name ||
+    !req.body.speciality ||
+    !req.body.contact ||
+    !req.body.phoneNumber
+  ) {
+    res
+      .status(400)
+      .send(
+        "Preencha todos os campos obrigatórios (name, speciality, contact, phoneNumber)",
+      );
     return;
   }
   if (typeof req.body.phoneNumber === "string") {
-    if (isNaN(parseInt(req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),),)) 
-      {
-      res.status(404).send("Número de telefone inválido, utilize apenas números");
+    let formNum = parseInt(
+      newProfessional.phoneNumber
+        .split(phoneRegex)
+        .reduce((el, acc) => el + acc),
+    );
+    if (isNaN(formNum)) {
+      res
+        .status(400)
+        .send("Número de telefone inválido, utilize apenas números");
       return;
+    } else {
+      newProfessional.phoneNumber = formNum;
     }
-  } 
-
-  if (req.body.status == "" || !req.body.status) {
-    newProfessional.status = "ON";
-  }
-  if (req.body.status && (req.body.status != "ON" || req.body.status != "on") && (req.body.status != "OFF" || req.body.status != "off")) {
-    res.status(404).send("Status inválido");
+  } else if (typeof req.body.phoneNumber === "number") {
+    newProfessional.phoneNumber = req.body.phoneNumber;
+  } else {
+    res.status(400).send("Número de telefone inválido");
     return;
   }
-  else {
-    db.addDB(newProfessional);
-    res.status(200).json(newProfessional);
+
+  if (req.body.status) {
+    if (typeof newProfessional.status === "string") {
+      let st = newProfessional.status.toLowerCase();
+      if (st === "on" || st === "off") {
+        newProfessional.status = st;
+      } else if (st === "") {
+        newProfessional.status = "on";
+      } else {
+        res.status(400).send("Status inválido");
+        return;
+      }
+    } else {
+      res.status(400).send("Status inválido");
+      return;
+    }
+  } else {
+    newProfessional.status = "on";
   }
 
+  let rs = db.addDB(newProfessional);
+  if (rs !== true) {
+    let original = db.getDB("professional")[rs];
+    newProfessional.id = original.id;
+  }
+  res.status(200).json(newProfessional);
 });
 
 router.get("/:id", (req, res) => {
-  let getprof = db.getDB("professional").find((el) => el.id == parseInt(req.params.id))
+  let getprof = db
+    .getDB("professional")
+    .find((el) => el.id == parseInt(req.params.id));
   if (getprof) {
-    res.status(200).json(getprof)
+    res.status(200).json(getprof);
+  } else {
+    res.status(404).send("Professional não encontrado");
   }
-  else {
-    res.status(404).send("ID inserido inválido, professional não encontrado")
-  }
-}
-  // Obter um objeto específico por ID
-);
+});
 
 router.put("/:id", (req, res) => {
-  let prof = db.getDB("Professional").find((el) => el.id == parseInt(req.params.id));
+  let prof = db
+    .getDB("professional")
+    .find((el) => el.id == parseInt(req.params.id));
   if (prof) {
     let newprof = new Professional(
       prof.id,
@@ -67,54 +104,79 @@ router.put("/:id", (req, res) => {
       prof.phoneNumber,
       prof.status,
     );
+
     if (req.body.name) {
       newprof.name = req.body.name;
     }
     if (req.body.speciality) {
       newprof.speciality = req.body.speciality;
     }
+
     if (req.body.contact) {
       newprof.contact = req.body.contact;
     }
+
     if (req.body.phoneNumber) {
-      if (
-        isNaN(
-          parseInt(
-            req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
-          ),
-        )
-      ) {
-        res.status(404).send("Número de telefone inválido, utilize apenas números");
+      if (typeof req.body.phoneNumber === "string") {
+        let formNum = parseInt(
+          req.body.phoneNumber
+            .split(phoneRegex)
+            .reduce((el, acc) => (el += acc)),
+        );
+        if (isNaN(formNum)) {
+          res
+            .status(400)
+            .send("Número de telefone inválido, utilize apenas números");
+          return;
+        }
+        newprof.phoneNumber = formNum;
+      } else if (typeof req.body.phoneNumber === "number") {
+        newprof.phoneNumber = req.body.phoneNumber;
+      }
+    }
+
+    if (req.body.status) {
+      if (typeof req.body.status === "string") {
+        let st = req.body.status.toLowerCase();
+        if (st === "on" || st === "off") {
+          newprof.status = st;
+        } else if (st === "") {
+          newprof.status = "on";
+        } else {
+          res.status(400).send("Status inválido");
+          return;
+        }
+      } else {
+        res.status(400).send("Status inválido");
         return;
       }
-      newprof.phoneNumber = req.body.phoneNumber;
     }
-    if (req.body.status) {
-      if (newprof.body.status == '') {
-        newprof.body.status = 'ON';
-      }
-      if ((req.body.status != 'ON' || req.body.status != 'on') && (req.body.stutus != 'OFF' || req.body.stutus != 'off')) {
-        res.status(400).send("Status inválido");
-      }
-    }
+
     db.removeDB("professional", prof);
-    db.addDB(newprof);
+    let rs = db.addDB(newprof);
+    if (rs !== true) {
+      let original = db.getDB("professional")[rs];
+      newprof.id = original.id;
+    }
+
     res.status(200).json(newprof);
-  }
-  else {
+  } else {
     res.status(404).send("Professional não encontrado");
     return;
   }
 });
 
 router.delete("/:id", (req, res) => {
-  let prof = db.getDB("professional").find((el) => el.id == parseInt(req.params.id));
+  let prof = db
+    .getDB("professional")
+    .find((el) => el.id == parseInt(req.params.id));
   if (prof) {
     db.removeDB("professional", prof);
-    res.status(200).send("O Professional foi deletado do banco de dados com sucesso!");
+    res.status(200).send("OK");
+  } else {
+    res.status(404).send("Professional não encontrado");
+    return;
   }
-  res.status(404).send("Professional não encontrado");
-  return;
 });
 
 module.exports = router;

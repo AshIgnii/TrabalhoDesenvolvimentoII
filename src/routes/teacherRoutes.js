@@ -6,6 +6,7 @@ const Teacher = require("../models/teacher.js");
 const emailRegex = new RegExp(
   "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
 );
+const phoneRegex = new RegExp("[a-z]|[A-Z]|\\s");
 
 router.get("/", (req, res) => {
   res.json(db.getDB("teacher"));
@@ -46,7 +47,9 @@ router.post("/", (req, res) => {
     if (
       isNaN(
         parseInt(
-          req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
+          req.body.phoneNumber
+            .split(phoneRegex)
+            .reduce((el, acc) => (el += acc)),
         ),
       )
     ) {
@@ -112,7 +115,9 @@ router.put("/:id", (req, res) => {
       if (
         isNaN(
           parseInt(
-            req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
+            req.body.phoneNumber
+              .split(phoneRegex)
+              .reduce((el, acc) => (el += acc)),
           ),
         )
       ) {

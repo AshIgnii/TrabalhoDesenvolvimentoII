@@ -3,6 +3,7 @@ const router = express.Router();
 const dbManager = require("../dbManager.js");
 const db = new dbManager();
 const Student = require("../models/student.js");
+const phoneRegex = new RegExp("[a-z]|[A-Z]|\\s");
 
 router.get("/", (req, res) => {
   res.json(db.getDB("student"));
@@ -37,7 +38,11 @@ router.post("/", (req, res) => {
 
   if (typeof req.body.age === "string") {
     if (
-      isNaN(parseInt(req.body.age.split(" ").reduce((el, acc) => (el += acc))))
+      isNaN(
+        parseInt(
+          req.body.age.split(phoneRegex).reduce((el, acc) => (el += acc)),
+        ),
+      )
     ) {
       res.status(400).send("Idade inválida, utilize apenas números");
       return;
@@ -48,7 +53,9 @@ router.post("/", (req, res) => {
     if (
       isNaN(
         parseInt(
-          req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
+          req.body.phoneNumber
+            .split(phoneRegex)
+            .reduce((el, acc) => (el += acc)),
         ),
       )
     ) {
@@ -106,7 +113,9 @@ router.put("/:id", (req, res) => {
     if (req.body.age) {
       if (
         isNaN(
-          parseInt(req.body.age.split(" ").reduce((el, acc) => (el += acc))),
+          parseInt(
+            req.body.age.split(phoneRegex).reduce((el, acc) => (el += acc)),
+          ),
         )
       ) {
         res.status(400).send("Idade inválida, utilize apenas números");
@@ -121,7 +130,9 @@ router.put("/:id", (req, res) => {
       if (
         isNaN(
           parseInt(
-            req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
+            req.body.phoneNumber
+              .split(phoneRegex)
+              .reduce((el, acc) => (el += acc)),
           ),
         )
       ) {
@@ -148,7 +159,7 @@ router.put("/:id", (req, res) => {
     db.removeDB("student", student);
     let rs = db.addDB(newStudent);
     if (rs !== true) {
-      let original = db.getDB("newStudent")[rs];
+      let original = db.getDB("student")[rs];
       newStudent.id = original.id;
     }
 
