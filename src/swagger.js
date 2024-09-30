@@ -44,14 +44,14 @@ const doc = {
         status: "on",
       },
       professional: {
-        name: "Winton Blake",
-        specialty: "Fisioterapeuta",
+        $name: "Winton Blake",
+        $specialty: "Fisioterapeuta",
         $contact: "w.blake@gmail",
-        phoneNumber: "48 9696 5858",
+        $phoneNumber: "48 9696 5858",
         status: "on",
       },
       event: {
-        description: "Palestra bem viver com saúde",
+        $description: "Palestra bem viver com saúde",
         comments: "Profissionais de saúde da Unesc",
         $date: "2023-08-15 16:00:00",
       },
