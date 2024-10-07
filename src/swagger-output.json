@@ -701,26 +701,6 @@
         }
       }
     },
-    "/users/{args}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "args",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/users/{id}": {
       "put": {
         "description": "",
