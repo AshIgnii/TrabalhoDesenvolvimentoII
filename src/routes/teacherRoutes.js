@@ -7,9 +7,47 @@ const emailRegex = new RegExp(
   "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
 );
 const phoneRegex = new RegExp("[a-z]|[A-Z]|\\s");
+const numberRegex = new RegExp("^\\d+$");
 
 router.get("/", (req, res) => {
-  res.json(db.getDB("teacher"));
+  let args = req.query;
+  if (args === undefined || Object.keys(args).length <= 0) {
+    res.json(db.getDB("teacher"));
+  } else {
+    Object.keys(args).forEach((key, index) => {
+      let value = args[key];
+      if (numberRegex.test(value)) {
+        args[key] = parseInt(value);
+      }
+    });
+
+    let dummy = new Teacher();
+    let keys = Object.getOwnPropertyNames(dummy);
+
+    let commonKeys = keys.filter((el) => Object.keys(args).includes(el));
+    if (commonKeys.length <= 0) {
+      res.status(400).send("Argumentos inválidos");
+      return;
+    }
+
+    let objs = db.getDB("teacher");
+    let rs = objs.filter((el) => {
+      let flag = true;
+      commonKeys.forEach((key) => {
+        if (el[key] !== args[key]) {
+          flag = false;
+        }
+      });
+      return flag;
+    });
+
+    if (rs.length <= 0) {
+      res.status(404).send("Nenhum resultado encontrado");
+      return;
+    }
+
+    res.json(rs);
+  }
 });
 
 router.post("/", (req, res) => {
@@ -70,17 +108,6 @@ router.post("/", (req, res) => {
   }
 
   res.status(200).json(newTeacher);
-});
-
-router.get("/:id", (req, res) => {
-  let teacher = db
-    .getDB("teacher")
-    .find((el) => el.id === parseInt(req.params.id));
-  if (teacher) {
-    res.status(200).json(teacher);
-  } else {
-    res.status(404).send("Professor não encontrado");
-  }
 });
 
 router.put("/:id", (req, res) => {

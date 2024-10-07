@@ -4,9 +4,47 @@ const dbManager = require("../dbManager.js");
 const db = new dbManager();
 const Student = require("../models/student.js");
 const phoneRegex = new RegExp("[a-z]|[A-Z]|\\s");
+const numberRegex = new RegExp("^\\d+$");
 
 router.get("/", (req, res) => {
-  res.json(db.getDB("student"));
+  let args = req.query;
+  if (args === undefined || Object.keys(args).length <= 0) {
+    res.json(db.getDB("student"));
+  } else {
+    Object.keys(args).forEach((key, index) => {
+      let value = args[key];
+      if (numberRegex.test(value)) {
+        args[key] = parseInt(value);
+      }
+    });
+
+    let dummy = new Student();
+    let keys = Object.getOwnPropertyNames(dummy);
+
+    let commonKeys = keys.filter((el) => Object.keys(args).includes(el));
+    if (commonKeys.length <= 0) {
+      res.status(400).send("Argumentos inválidos");
+      return;
+    }
+
+    let objs = db.getDB("student");
+    let rs = objs.filter((el) => {
+      let flag = true;
+      commonKeys.forEach((key) => {
+        if (el[key] !== args[key]) {
+          flag = false;
+        }
+      });
+      return flag;
+    });
+
+    if (rs.length <= 0) {
+      res.status(404).send("Nenhum resultado encontrado");
+      return;
+    }
+
+    res.json(rs);
+  }
 });
 
 router.post("/", (req, res) => {
@@ -77,17 +115,6 @@ router.post("/", (req, res) => {
   }
 
   res.status(200).json(newStudent);
-});
-
-router.get("/:id", (req, res) => {
-  let student = db
-    .getDB("student")
-    .find((el) => el.id === parseInt(req.params.id));
-  if (student) {
-    res.status(200).json(student);
-  } else {
-    res.status(404).send("Aluno não encontrado");
-  }
 });
 
 router.put("/:id", (req, res) => {

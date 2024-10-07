@@ -3,9 +3,47 @@ const router = express.Router();
 const dbManager = require("../dbManager.js");
 const db = new dbManager();
 const Event = require("../models/event.js");
+const numberRegex = new RegExp("^\\d+$");
 
 router.get("/", (req, res) => {
-  res.json(db.getDB("event"));
+  let args = req.query;
+  if (args === undefined || Object.keys(args).length <= 0) {
+    res.json(db.getDB("event"));
+  } else {
+    Object.keys(args).forEach((key, index) => {
+      let value = args[key];
+      if (numberRegex.test(value)) {
+        args[key] = parseInt(value);
+      }
+    });
+
+    let dummy = new Event();
+    let keys = Object.getOwnPropertyNames(dummy);
+
+    let commonKeys = keys.filter((el) => Object.keys(args).includes(el));
+    if (commonKeys.length <= 0) {
+      res.status(400).send("Argumentos inválidos");
+      return;
+    }
+
+    let objs = db.getDB("event");
+    let rs = objs.filter((el) => {
+      let flag = true;
+      commonKeys.forEach((key) => {
+        if (el[key] !== args[key]) {
+          flag = false;
+        }
+      });
+      return flag;
+    });
+
+    if (rs.length <= 0) {
+      res.status(404).send("Nenhum resultado encontrado");
+      return;
+    }
+
+    res.json(rs);
+  }
 });
 
 router.post("/", (req, res) => {
@@ -47,15 +85,6 @@ router.post("/", (req, res) => {
     newEvent.id = original.id;
   }
   res.status(200).json(newEvent);
-});
-
-router.get("/:id", (req, res) => {
-  let event = db.getDB("event").find((el) => el.id === parseInt(req.params.id));
-  if (event) {
-    res.status(200).json(event);
-  } else {
-    res.status(404).send("Evento não encontrado");
-  }
 });
 
 router.put("/:id", (req, res) => {
