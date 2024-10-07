@@ -4,8 +4,21 @@ const dbManager = require("../dbManager.js");
 const db = new dbManager();
 const Event = require("../models/event.js");
 const numberRegex = new RegExp("^\\d+$");
+const phoneNumberRegex = new RegExp("^\\d{2}\\s\\d{4,5}\\s\\d{4}$");
 
 router.get("/", (req, res) => {
+  /* #swagger.parameters['filtro'] = {
+          in: "query",
+          name: "Filtro de busca",
+          required: false,
+          type: "object",
+          schema: {
+            $ref: "#/components/schemas/event"
+          },
+          style: "form",
+          explode: true
+  }
+  */
   let args = req.query;
   if (args === undefined || Object.keys(args).length <= 0) {
     res.json(db.getDB("event"));
@@ -14,6 +27,8 @@ router.get("/", (req, res) => {
       let value = args[key];
       if (numberRegex.test(value)) {
         args[key] = parseInt(value);
+      } else if (phoneNumberRegex.test(value)) {
+        args[key] = parseInt(value.split(" ").reduce((el, acc) => (el += acc)));
       }
     });
 
@@ -47,6 +62,17 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  /*  #swagger.requestBody = {
+        required: true,
+        content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/event"
+          }
+        }
+      }
+    }
+  */
   let id = db.getDB("event").length + 1;
   let newEvent = new Event(
     id,

@@ -24,6 +24,19 @@
     "/appointments/": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "Filtro de busca",
+            "in": "query",
+            "required": false,
+            "type": "object",
+            "schema": {
+              "$ref": "#/components/schemas/appointment"
+            },
+            "style": "form",
+            "explode": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -47,27 +60,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "specialty": {
-                    "example": "any"
-                  },
-                  "comments": {
-                    "example": "any"
-                  },
-                  "date": {
-                    "example": "any"
-                  },
-                  "student": {
-                    "example": "any"
-                  },
-                  "professional": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/appointment"
               }
             }
           }
@@ -150,6 +147,19 @@
     "/events/": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "Filtro de busca",
+            "in": "query",
+            "required": false,
+            "type": "object",
+            "schema": {
+              "$ref": "#/components/schemas/event"
+            },
+            "style": "form",
+            "explode": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -173,21 +183,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "description": {
-                    "example": "any"
-                  },
-                  "comments": {
-                    "example": "any"
-                  },
-                  "date": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/event"
               }
             }
           }
@@ -264,6 +264,19 @@
     "/professionals/": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "Filtro de busca",
+            "in": "query",
+            "required": false,
+            "type": "object",
+            "schema": {
+              "$ref": "#/components/schemas/professional"
+            },
+            "style": "form",
+            "explode": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -287,27 +300,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "speciality": {
-                    "example": "any"
-                  },
-                  "contact": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  },
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/professional"
               }
             }
           }
@@ -390,6 +387,19 @@
     "/students/": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "Filtro de busca",
+            "in": "query",
+            "required": false,
+            "type": "object",
+            "schema": {
+              "$ref": "#/components/schemas/student"
+            },
+            "style": "form",
+            "explode": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -413,30 +423,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "age": {
-                    "example": "any"
-                  },
-                  "parents": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  },
-                  "specialNeeds": {
-                    "example": "any"
-                  },
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/student"
               }
             }
           }
@@ -522,6 +513,19 @@
     "/teachers/": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "Filtro de busca",
+            "in": "query",
+            "required": false,
+            "type": "object",
+            "schema": {
+              "$ref": "#/components/schemas/teacher"
+            },
+            "style": "form",
+            "explode": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -545,27 +549,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "schoolDiscipline": {
-                    "example": "any"
-                  },
-                  "contact": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  },
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/teacher"
               }
             }
           }
@@ -648,6 +636,19 @@
     "/users/": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "Filtro de busca",
+            "in": "query",
+            "required": false,
+            "type": "object",
+            "schema": {
+              "$ref": "#/components/schemas/user"
+            },
+            "style": "form",
+            "explode": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -671,30 +672,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "email": {
-                    "example": "any"
-                  },
-                  "user": {
-                    "example": "any"
-                  },
-                  "pwd": {
-                    "example": "any"
-                  },
-                  "level": {
-                    "example": "any"
-                  },
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/user"
               }
             }
           }

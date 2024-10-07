@@ -7,9 +7,23 @@ const emailRegex = new RegExp(
   "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
 );
 const numberRegex = new RegExp("^\\d+$");
+const phoneNumberRegex = new RegExp("^\\d{2}\\s\\d{4,5}\\s\\d{4}$");
 
 router.get("/", (req, res) => {
+  /* #swagger.parameters['filtro'] = {
+          in: "query",
+          name: "Filtro de busca",
+          required: false,
+          type: "object",
+          schema: {
+            $ref: "#/components/schemas/user"
+          },
+          style: "form",
+          explode: true
+  }
+  */
   let args = req.query;
+  console.log(args);
   if (args === undefined || Object.keys(args).length <= 0) {
     res.json(db.getDB("user"));
   } else {
@@ -17,6 +31,8 @@ router.get("/", (req, res) => {
       let value = args[key];
       if (numberRegex.test(value)) {
         args[key] = parseInt(value);
+      } else if (phoneNumberRegex.test(value)) {
+        args[key] = parseInt(value.split(" ").reduce((el, acc) => (el += acc)));
       }
     });
 
@@ -50,6 +66,17 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  /*  #swagger.requestBody = {
+        required: true,
+        content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/user"
+          }
+        }
+      }
+    }
+  */
   let id = db.getDB("user").length + 1;
   let newUser = new User(
     id,
