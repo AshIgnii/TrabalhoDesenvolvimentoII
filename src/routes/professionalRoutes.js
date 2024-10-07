@@ -108,7 +108,7 @@ router.post("/", (req, res) => {
         .send("Número de telefone inválido, utilize apenas números");
       return;
     } else if (phoneNumberRegex.test(req.body.phoneNumber)) {
-      newStudent.phoneNumber = parseInt(
+      newProfessional.phoneNumber = parseInt(
         req.body.phoneNumber.split(" ").reduce((el, acc) => (el += acc)),
       );
     }
