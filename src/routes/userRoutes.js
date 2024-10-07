@@ -91,11 +91,6 @@ router.post("/", (req, res) => {
   res.status(200).json(newUser);
 });
 
-router.get("/:args", (req, res) => {
-  let dummy = new User();
-  let keys = Object.getOwnPropertyNames(dummy);
-});
-
 router.put("/:id", (req, res) => {
   let user = db.getDB("user").find((el) => el.id === parseInt(req.params.id));
   if (user) {
