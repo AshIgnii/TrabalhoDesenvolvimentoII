@@ -1,8 +1,8 @@
 class Professional {
-  constructor(id, name, speciality, contact, phoneNumber, status) {
+  constructor(id, name, specialty, contact, phoneNumber, status) {
     this.id = id;
     this.name = name;
-    this.speciality = speciality;
+    this.specialty = specialty;
     this.contact = contact;
     this.phoneNumber = phoneNumber;
     this.status = status;

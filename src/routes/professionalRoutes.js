@@ -80,21 +80,21 @@ router.post("/", (req, res) => {
   let newProfessional = new Professional(
     id,
     req.body.name,
-    req.body.speciality,
+    req.body.specialty,
     req.body.contact,
     req.body.phoneNumber,
     req.body.status,
   );
   if (
     !req.body.name ||
-    !req.body.speciality ||
+    !req.body.specialty ||
     !req.body.contact ||
     !req.body.phoneNumber
   ) {
     res
       .status(400)
       .send(
-        "Preencha todos os campos obrigatórios (name, speciality, contact, phoneNumber)",
+        "Preencha todos os campos obrigatórios (name, specialty, contact, phoneNumber)",
       );
     return;
   }
@@ -168,7 +168,7 @@ router.put("/:id", (req, res) => {
     let newprof = new Professional(
       prof.id,
       prof.name,
-      prof.speciality,
+      prof.specialty,
       prof.contact,
       prof.phoneNumber,
       prof.status,
@@ -177,8 +177,8 @@ router.put("/:id", (req, res) => {
     if (req.body.name) {
       newprof.name = req.body.name;
     }
-    if (req.body.speciality) {
-      newprof.speciality = req.body.speciality;
+    if (req.body.specialty) {
+      newprof.specialty = req.body.specialty;
     }
 
     if (req.body.contact) {
