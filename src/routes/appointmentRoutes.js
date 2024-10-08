@@ -153,6 +153,17 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  /*  #swagger.requestBody = {
+        required: true,
+        content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/appointment"
+          }
+        }
+      }
+    }
+  */
   let appointment = db
     .getDB("appointment")
     .find((el) => el.id === parseInt(req.params.id));

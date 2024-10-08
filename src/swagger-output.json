@@ -96,27 +96,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "specialty": {
-                    "example": "any"
-                  },
-                  "comments": {
-                    "example": "any"
-                  },
-                  "date": {
-                    "example": "any"
-                  },
-                  "student": {
-                    "example": "any"
-                  },
-                  "professional": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/appointment"
               }
             }
           }
@@ -219,21 +203,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "description": {
-                    "example": "any"
-                  },
-                  "comments": {
-                    "example": "any"
-                  },
-                  "date": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/event"
               }
             }
           }
@@ -336,27 +310,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "speciality": {
-                    "example": "any"
-                  },
-                  "contact": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  },
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/professional"
               }
             }
           }
@@ -459,30 +417,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "age": {
-                    "example": "any"
-                  },
-                  "parents": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  },
-                  "specialNeeds": {
-                    "example": "any"
-                  },
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/student"
               }
             }
           }
@@ -585,27 +524,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "schoolDiscipline": {
-                    "example": "any"
-                  },
-                  "contact": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  },
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/teacher"
               }
             }
           }
@@ -708,30 +631,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "email": {
-                    "example": "any"
-                  },
-                  "user": {
-                    "example": "any"
-                  },
-                  "pwd": {
-                    "example": "any"
-                  },
-                  "level": {
-                    "example": "any"
-                  },
-                  "status": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/user"
               }
             }
           }
