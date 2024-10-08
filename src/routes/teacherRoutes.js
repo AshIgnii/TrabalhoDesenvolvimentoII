@@ -11,6 +11,7 @@ const numberRegex = new RegExp("^\\d+$");
 const phoneNumberRegex = new RegExp("^\\d{2}\\s\\d{4,5}\\s\\d{4}$");
 
 router.get("/", (req, res) => {
+  // #swagger.tags = ['teachers']
   /* #swagger.parameters['filtro'] = {
           in: "query",
           name: "Filtro de busca",
@@ -66,6 +67,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  // #swagger.tags = ['teachers']
   /*  #swagger.requestBody = {
         required: true,
         content: {
@@ -141,6 +143,7 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  // #swagger.tags = ['teachers']
   /*  #swagger.requestBody = {
         required: true,
         content: {
@@ -221,6 +224,7 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
+  // #swagger.tags = ['teachers']
   let teacher = db
     .getDB("teacher")
     .find((el) => el.id === parseInt(req.params.id));

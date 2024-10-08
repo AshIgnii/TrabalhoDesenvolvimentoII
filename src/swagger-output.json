@@ -23,6 +23,9 @@
     },
     "/appointments/": {
       "get": {
+        "tags": [
+          "appointments"
+        ],
         "description": "",
         "parameters": [
           {
@@ -50,6 +53,9 @@
         }
       },
       "post": {
+        "tags": [
+          "appointments"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -73,6 +79,9 @@
     },
     "/appointments/{id}": {
       "put": {
+        "tags": [
+          "appointments"
+        ],
         "description": "",
         "parameters": [
           {
@@ -107,6 +116,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "appointments"
+        ],
         "description": "",
         "parameters": [
           {
@@ -130,6 +142,9 @@
     },
     "/events/": {
       "get": {
+        "tags": [
+          "events"
+        ],
         "description": "",
         "parameters": [
           {
@@ -157,6 +172,9 @@
         }
       },
       "post": {
+        "tags": [
+          "events"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -180,6 +198,9 @@
     },
     "/events/{id}": {
       "put": {
+        "tags": [
+          "events"
+        ],
         "description": "",
         "parameters": [
           {
@@ -214,6 +235,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "events"
+        ],
         "description": "",
         "parameters": [
           {
@@ -237,6 +261,9 @@
     },
     "/professionals/": {
       "get": {
+        "tags": [
+          "professionals"
+        ],
         "description": "",
         "parameters": [
           {
@@ -264,6 +291,9 @@
         }
       },
       "post": {
+        "tags": [
+          "professionals"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -287,6 +317,9 @@
     },
     "/professionals/{id}": {
       "put": {
+        "tags": [
+          "professionals"
+        ],
         "description": "",
         "parameters": [
           {
@@ -321,6 +354,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "professionals"
+        ],
         "description": "",
         "parameters": [
           {
@@ -344,6 +380,9 @@
     },
     "/students/": {
       "get": {
+        "tags": [
+          "students"
+        ],
         "description": "",
         "parameters": [
           {
@@ -371,6 +410,9 @@
         }
       },
       "post": {
+        "tags": [
+          "students"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -394,6 +436,9 @@
     },
     "/students/{id}": {
       "put": {
+        "tags": [
+          "students"
+        ],
         "description": "",
         "parameters": [
           {
@@ -428,6 +473,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "students"
+        ],
         "description": "",
         "parameters": [
           {
@@ -451,6 +499,9 @@
     },
     "/teachers/": {
       "get": {
+        "tags": [
+          "teachers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -478,6 +529,9 @@
         }
       },
       "post": {
+        "tags": [
+          "teachers"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -501,6 +555,9 @@
     },
     "/teachers/{id}": {
       "put": {
+        "tags": [
+          "teachers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -535,6 +592,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "teachers"
+        ],
         "description": "",
         "parameters": [
           {
@@ -558,6 +618,9 @@
     },
     "/users/": {
       "get": {
+        "tags": [
+          "users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -585,6 +648,9 @@
         }
       },
       "post": {
+        "tags": [
+          "users"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -608,6 +674,9 @@
     },
     "/users/{id}": {
       "put": {
+        "tags": [
+          "users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -642,6 +711,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "users"
+        ],
         "description": "",
         "parameters": [
           {
