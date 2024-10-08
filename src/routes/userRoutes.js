@@ -23,7 +23,6 @@ router.get("/", (req, res) => {
   }
   */
   let args = req.query;
-  console.log(args);
   if (args === undefined || Object.keys(args).length <= 0) {
     res.json(db.getDB("user"));
   } else {

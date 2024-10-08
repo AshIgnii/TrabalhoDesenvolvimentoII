@@ -179,17 +179,21 @@ router.put("/:id", (req, res) => {
       newStudent.name = req.body.name;
     }
     if (req.body.age) {
-      if (
-        isNaN(
-          parseInt(
-            req.body.age.split(phoneRegex).reduce((el, acc) => (el += acc)),
-          ),
-        )
-      ) {
-        res.status(400).send("Idade inválida, utilize apenas números");
-        return;
+      if (typeof req.body.age === "string") {
+        if (
+          isNaN(
+            parseInt(
+              req.body.age.split(phoneRegex).reduce((el, acc) => (el += acc)),
+            ),
+          )
+        ) {
+          res.status(400).send("Idade inválida, utilize apenas números");
+          return;
+        }
+        newStudent.age = req.body.age;
+      } else if (typeof req.body.age === "number") {
+        newStudent.age = req.body.age;
       }
-      newStudent.age = req.body.age;
     }
     if (req.body.parents) {
       newStudent.parents = req.body.parents;
