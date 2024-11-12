@@ -221,7 +221,7 @@ router.put("/:id", (req, res) => {
       newAppointment.id = original.id;
     }
 
-    res.status(200).json(newAppointment).send("OK");
+    res.status(200).json(newAppointment);
   } else {
     res.status(404).send("Consulta não encontrada");
   }
